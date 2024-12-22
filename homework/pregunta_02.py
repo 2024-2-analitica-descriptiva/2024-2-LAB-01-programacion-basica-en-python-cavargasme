@@ -5,6 +5,14 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+from collections import Counter
+
+with open("/home/camila/Escritorio/A. Descriptiva/Laboratorios/2024-2-LAB-01-programacion-basica-en-python-cavargasme/files/input/data.csv","r") as file:
+    datos = file.readlines()
+
+datos = [line.replace('\t', '|').replace('\n','') for line in datos]
+datos = [line.split('|') for line in datos]
+
 
 def pregunta_02():
     """
@@ -15,3 +23,8 @@ def pregunta_02():
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
 
     """
+    col1 = []
+    [col1.append(item[0]) for item in datos]
+    tuple_list = sorted(list(Counter(col1).items()))
+
+    return tuple_list

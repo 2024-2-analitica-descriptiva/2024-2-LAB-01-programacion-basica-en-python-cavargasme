@@ -4,6 +4,15 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
+with open("/home/camila/Escritorio/A. Descriptiva/Laboratorios/2024-2-LAB-01-programacion-basica-en-python-cavargasme/files/input/data.csv","r") as file:
+    datos = file.readlines()
+
+datos = [line.replace('\t', '|').replace('\n','') for line in datos]
+datos = [line.split('|') for line in datos]
+
+from datetime import datetime
+from collections import Counter
+import itertools
 
 
 def pregunta_07():
@@ -25,3 +34,10 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    columnas = [x[:2] for x in datos]
+    new_group = []
+
+    for i, j in itertools.groupby(sorted(columnas, key = lambda x : x[1]), lambda x : x[1]):
+        new_group.append((int(i), [x[0] for x in j]))
+
+    return new_group

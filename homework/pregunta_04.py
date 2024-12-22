@@ -5,6 +5,14 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+with open("/home/camila/Escritorio/A. Descriptiva/Laboratorios/2024-2-LAB-01-programacion-basica-en-python-cavargasme/files/input/data.csv","r") as file:
+    datos = file.readlines()
+
+datos = [line.replace('\t', '|').replace('\n','') for line in datos]
+datos = [line.split('|') for line in datos]
+
+from datetime import datetime
+from collections import Counter
 
 def pregunta_04():
     """
@@ -26,3 +34,10 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    data_by_month = Counter()
+
+    for row in datos:
+        date = datetime.strptime(row[2][:7], "%Y-%m")
+        data_by_month['{:02d}'.format(date.month)] += 1
+
+    return sorted(list(data_by_month.items()))
